@@ -1,0 +1,43 @@
+let filmBlock = document.querySelector('.viewedFilms')
+let films = [
+    {
+        name: 'Р•С‰Рµ РїРѕ РѕРґРЅРѕР№',
+        date: '2020-03-24'
+    },
+    {
+        name: 'Р”РѕРІРѕРґ',
+        date: '2020-01-01'
+    },
+    {
+        name: 'РџР»РѕС…РёРµ РїР°СЂРЅРё РЅР°РІСЃРµРіРґР°',
+        date: '2020-06-14'
+    },
+]
+
+function addNewFilm() {
+    let addNewName = document.querySelector('#addNewName').value
+    let addNewDate = document.querySelector('#addNewDate').value
+    let newFilm = {
+        name: addNewName,
+        date: addNewDate
+    }
+    films.push(newFilm)
+    showNewFilm(films)
+}
+function showFilms(array) {
+    array.map((el) => {
+        let newFilmDiv = document.createElement('div')
+        newFilmDiv.setAttribute('class','viewedFilm')
+        newFilmDiv.innerHTML = `<span>${el.name} </span><span>${el.date} </span>`
+        filmBlock.appendChild(newFilmDiv)
+    })
+}
+window.onload = showFilms(films)
+
+function showNewFilm(array){
+    let lastFilm = array[array.length - 1]
+    let newFilmDiv = document.createElement('div')
+    newFilmDiv.setAttribute('class','viewedFilm')
+    newFilmDiv.innerHTML = `<span>${lastFilm.name} </span><span>${lastFilm.date} </span>`
+    filmBlock.appendChild(newFilmDiv)
+}

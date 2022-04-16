@@ -1,0 +1,32 @@
+* {
+				box-sizing: border-box;
+				}
+
+#parent {
+				text-align:center;
+				font-size: 120px;
+				position: absolute;
+				left: 31%;
+				margin-right: -50%;
+				background-color: gray;
+				color:white;
+				text-shadow: #cad5e2 1px 1px 0, #cad5e2 2px 2px 0, 
+                 #cad5e2 3px 3px 0, #cad5e2 4px 4px 0, 
+                 #cad5e2 5px 5px 0;
+			}
+	
+h1{				text-align:center;
+text-shadow: #cad5e2 1px 1px 0, #cad5e2 2px 2px 0, 
+                 #cad5e2 3px 3px 0, #cad5e2 4px 4px 0, 
+                 #cad5e2 5px 5px 0;}	
+#field td {
+				width: 150px;
+				height: 150px;
+				border: 1px solid black;
+				text-align: center;
+				font-weight: bold;
+			}	
+			
+.container{
+	
+}

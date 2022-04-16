@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>September schedule</title>
+	<style>
+	header{display: block;height: 450px; background: url(img/september2.jpg) no-repeat center top;}
+	
+	h1{font-family:"MV BOLI", sans-serif;
+	font-size:50px;}
+	.container{
+	  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+	}
+	td {padding:10px;
+    border-bottom:solid 2px lightgray;
+}
+
+table{
+        border-collapse: collapse;
+	padding:50px;}
+	</style>
+  </head>
+  <body>
+       <header><h1>September schedule</h1></header>
+	   <div class="container">
+	   <table>
+	   <tr>
+	   <th>Weekday</th>
+	   <th>Timetable</th>
+	   </tr>
+	   <tr>
+	   <td>Monday</td>
+	   <td><ol><li>Requirements development and analysis</li></ol></td>
+	   </tr>
+	   <td>Tuesday</td>
+	   <td><ol>
+	   <li>Analytics in IoT</li>
+	   <li>Software Quality Assurance and Testing</li>
+	   <li>Software Quality Assurance and Testing</li>
+	   </ol></td>
+	   </tr>
+	   <td>Wednesday</td>
+	   <td><ol>
+	   <li>Software Quality Assurance and Testing</li>
+	   <li>Computer graphics</li>
+	   </ol></td>
+	   </tr>
+	   <td>Thursday</td>
+	   <td><ol><li>Media: advertising, propaganda, social myths</li>
+	   <li>Media: advertising, propaganda, social myths</li></ol></td>
+	   </tr>
+	   <td>Friday</td>
+	   <td><ol>
+	   <li>Software Quality Assurance and Testing</li>
+	   <li>Web-programming</li>
+	   <li>Machine Learning</li></ol></td>
+	   </tr>
+	   <td>Saturday</td>
+	   <td><ol><li>Requirements development and analysis</li></ol></td>
+	   </tr>
+	   <td>Sunday</td>
+	   <td></td>
+	   </tr>
+	   </table>
+	   </div>
+	   <form action="/echo" method="post">
+	   <p>Форма обратной связи</p>
+            <label for="login-field">Ваше имя</label>
+            <input type="text" name="name" id="name-field">
+            <p>Запрос</p>
+            <textarea>Введите текст запроса</textarea>
+			<br>
+            <input type="submit" value="Отправить">
+        </form>
+		
+  </body>
+</html>

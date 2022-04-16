@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VolunteerSystem</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+    margin: 0px;
+    font-family: Play;
+    color:saddlebrown;
+    background-image: url("img/background.jpg");}
+	
+	.container {
+	width: 50%;
+	height: auto;
+	margin-left: 10%;
+	padding: 20px 2.5%;
+	float: left;
+	position: relative;
+	z-index: 1
+    color:saddlebrown;
+    text-align: left;
+    font-family: Play;
+}
+
+.line {
+    position: absolute;
+    width: 8px;
+    height: 390px;
+    left: 58%;
+    top: 160px;
+    background: #8B709F;
+    border-radius: 45px;
+    transform: rotate( 0.01deg );
+}
+
+.container-txt {
+    position: absolute;
+    width: 500px;
+    height: 109px;
+    left: 60%;
+    top: 35%;
+    font-family: Play;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 46px;
+    color: saddlebrown;
+}
+
+	.menu {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    width: 100%;
+    background: #E26A2B;
+    opacity: 0.7;
+    overflow: hidden;
+    height: 130px;
+    font-size: 18px;
+    font-family: Play;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+    text-transform: capitalize;
+    color: #FFFFFF;}
+
+    .navbar_new a {
+	float: left;
+	display: block; 
+	color: white;
+	text-align: center;
+	padding: 14px 24px; 
+	text-decoration: none;}
+	
+	.navbar_new a:hover {
+	background-color: #ddd;
+	color: black;}
+    </style>
+</head>
+<body>
+    <header class="menu">
+	<h1>Волонтерская организация "Восток"</h1>
+	<a href="start.html">Главная</a>
+	<a href="volunteer.html">Волонтеры</a>
+	<a href="events.html">Мероприятия</a>
+	<a href="forms.html">Присоединиться</a></header>	</div>
+    <br /><br /><br /><br /><br /><br />
+	
+	 <div class="container">
+		<h2>Регистрация</h2>
+  <form class="" action="forms.html" method="post">
+    <form class="" action="" method="post">
+      <label for="name">ФИО: </label>
+	  <input type="text" placeholder="ФИО" name="name" id="name" value="ФИО" maxlength="50"><br><br>
+	  
+	  <label for="state">Пол: </label>
+      <input type="radio" name="state" value="">Мужской
+      <input type="radio" name="state" value="">Женский<br><br>
+	  
+	  <label for="date">Дата рождения: </label>
+      <input type="date" name="date" value=""><br><br>
+	  
+	  <label for="file">Фотография: </label>
+      <input type="file" name="file" value=""><br><br>
+	  
+      <label for="email">Электронная почта: </label>
+      <input type="email" name="email" value=""><br><br>
+
+      <label for="state">Принимали ли вы участие в мероприятиях в качестве волонтера?</label><br>
+      <input type="radio" name="state" value="">Да
+      <input type="radio" name="state" value="">Нет<br>
+
+      <p>О себе: </p>
+      <textarea name="self" rows="10" cols="60" ></textarea><br><br>
+      <input type="submit" name="" value="Зарегистрироваться"><br><br>
+            </div>
+    <div class="line"></div>
+    <div class="container-txt">Становись волонтером и меняй мир вместе с нами!</div>
+</body>
+</html>
+
+
+

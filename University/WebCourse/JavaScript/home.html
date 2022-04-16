@@ -1,0 +1,116 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css">
+<title>Домашняя библиотека</title>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js?ver=1.6.4'></script>
+
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+	<h1>Моя библиотека</h1>
+	<div id= "blockajax"></div>
+    </div>
+
+    <div class="container-book">
+	<h3>Книжная полка</h3>
+	<div class="viewedLibrary">	<button class="open">+</button></div>
+	</div>
+	
+	<div id="container-add">
+	<h2>Добавление книги</h2>
+	<div class="container-new-book">
+            <label for="addNewName">Название книги</label>		
+            <input type="text" placeholder="название книги" id="addNewName" class="nameInput">
+			
+            <label for="addNewAuthor">Автор</label>
+            <input type="text" placeholder="автор" id="addNewAuthor" class="authorInput">
+			
+            <button onclick="addNewBook()">Сохранить</button>
+	</div>
+    </div>
+</div>
+
+<script>
+
+
+
+let bookList = document.querySelector('.viewedLibrary')
+let books = [
+    {
+        name: 'Жизнь Пи',
+        author: 'Янн Мартел',
+    },
+	
+	 {
+        name: 'Повелитель мух',
+        author: 'Уильям Голдинг',
+    },
+	
+	 {
+        name: 'Исповедь неполноценного человека',
+        author: 'Осаму Дадзай',
+    },
+	
+	 {
+        name: 'Гордость и предупреждение',
+        author: 'Джейн Остин',
+    },
+	 {
+        name: 'Колыбель для кошки',
+        author: 'Курт Воннегут',
+    }
+]
+
+function addNewBook() {
+    let addNewName = document.querySelector('#addNewName').value
+    let addNewAuthor = document.querySelector('#addNewAuthor').value
+    let newBook = {
+        name: addNewName,
+        author: addNewAuthor
+    }
+    books.push(newBook)
+	showNewBook(books)
+	alert('Книга добавлена в библиотеку')
+}
+
+function showListBooks(array) {
+    array.map((el) => {
+        let newBookDiv = document.createElement('div')
+        newBookDiv.setAttribute('class','viewedBook')
+        newBookDiv.innerHTML = `<span>\"${el.name}\" </span><br><span>${el.author} </span>`
+        bookList.appendChild(newBookDiv)    
+	}
+	)
+}
+
+window.onload = showListBooks(books)
+
+function showNewBook(array){
+    let lastBook = array[array.length - 1]
+    let newBookDiv = document.createElement('div')
+    newBookDiv.setAttribute('class','viewedBook')
+    newBookDiv.innerHTML = `<span>\"${lastBook.name}\"	</span><br><span>${lastBook.author} </span>`
+    bookList.appendChild(newBookDiv)
+}
+
+//открытие блока добавления книги
+$( "button" ).click(function() {
+  $( "#container-add" ).slideToggle( "slow" );
+});
+
+//нажатие на книгу
+$(".viewedBook").click(function(){
+  $(this).toggleClass("viewedBook2");
+});
+
+//ajax
+(function($) {
+$(function() {
+  $("#blockajax").load("text-dlya-ajax.html");
+})
+})(jQuery)
+</script>
+</body>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Игра крестики-нолики</title>
+<script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+<script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+<script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+<script src="https://npmcdn.com/jquery@3.1.0/dist/jquery.min.js"></script>
+<script src="https://npmcdn.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<h1>Игра Крестики-Нолики</h1>
+<div id="helex"></div>
+<script>
+class Game extends React.Component
+{
+	constructor(props){
+		super(props);
+		this.state = {
+		cells : Array(9).fill(null), 
+		player : 0}
+		
+		this.wincombs =[
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6]
+		];
+	}
+
+clickHandler(event){
+		let data = event.data;
+		if(data.innerHTML == '')
+		{
+			let XO = ['x','o'][ this.state.player % 2 ];
+			this.state.cells[event.data.dataset.num] = XO;
+			this.setState({cells : this.state.cells});
+			console.log(this.state.cells);
+			if(this.isWin(this.state.cells))
+			{
+				alert('Победа игрока "' + XO +'"');
+				this.clearGameFields();
+			}
+			else if(this.state.player == 8)
+			{
+				alert('Ничья');
+				this.clearGameFields();
+			}										
+			this.state.player++;
+			this.setState({player : this.state.player });
+		}								
+	}
+	
+isWin(cells)
+	{				
+		for(let wincomb of wincombs)
+		{
+			if(cells[wincomb[0]]!= null)
+			{
+				if((cells[wincomb[0]] == cells[wincomb[1]]) 
+				&& (cells[wincomb[1]] == cells[wincomb[2]])
+				&& (cells[wincomb[1]] != ''))
+					return true;
+			}
+		}
+		return false;
+	}
+
+clearGameFields()
+	{   this.state.cells = Array(9).fill(null);
+		this.state.player = 0;
+		this.setState({cells: this.state.cells, player : this.state.player});
+		console.log(this.state.cells);
+	}
+
+
+render()
+{
+    return  <div class ="container">
+	<div class="maintable"
+					<table class = "field">
+						<tbody>
+							<tr>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '0'>{this.state.cells[0]}</td>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '1'>{this.state.cells[1]}</td>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '2'>{this.state.cells[2]}</td>
+							</tr>
+							<tr>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '3'>{this.state.cells[3]}</td>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '4'>{this.state.cells[4]}</td>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '5'>{this.state.cells[5]}</td>
+							</tr>
+							<tr>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '6'>{this.state.cells[6]}</td>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '7'>{this.state.cells[7]}</td>
+								<td onClick = {this.clickHandler.bind(this)} data-num = '8'>{this.state.cells[8]}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div></div>
+	}
+}
+
+ReactDOM.render(<Game/>, document.getElementById('helex'));
+</script>
+
+</body>
+</html>
