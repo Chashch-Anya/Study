@@ -1,0 +1,8 @@
+C:\Users\USER\source\repos\System\button\bin\Debug\button.dll
+C:\Users\USER\source\repos\System\button\bin\Debug\button.pdb
+C:\Users\USER\source\repos\System\button\obj\Debug\Elements.csprojAssemblyReference.cache
+C:\Users\USER\source\repos\System\button\obj\Debug\button.MyButton.resources
+C:\Users\USER\source\repos\System\button\obj\Debug\Elements.csproj.GenerateResource.cache
+C:\Users\USER\source\repos\System\button\obj\Debug\Elements.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\System\button\obj\Debug\button.dll
+C:\Users\USER\source\repos\System\button\obj\Debug\button.pdb
