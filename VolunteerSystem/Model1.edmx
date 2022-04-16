@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище VolunteerDataBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" MaxLength="255" />
+          <Property Name="TrendID" Type="int" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="255" />
+          <Property Name="EventDate" Type="date" />
+          <Property Name="OrganizerID" Type="nvarchar" MaxLength="255" />
+          <Property Name="NeedVolunteer" Type="int" />
+          <Property Name="FoundVolunteer" Type="int" />
+          <Property Name="HoursOfWork" Type="int" />
+          <Property Name="Tegs" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EventDirection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Trend" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "VolunteerDataBase.dbo.EventTegs" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="EventTegs">
+          <Key>
+            <PropertyRef Name="EventID" />
+            <PropertyRef Name="TegID" />
+          </Key>
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="TegID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="VolunteerID" Type="nvarchar" MaxLength="255" />
+          <Property Name="EventID" Type="int" />
+          <Property Name="Feedback" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Organizer">
+          <Key>
+            <PropertyRef Name="OrganizerID" />
+          </Key>
+          <Property Name="OrganizerID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="OrganizationName" Type="nvarchar" MaxLength="255" />
+          <Property Name="TypeID" Type="int" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="int" Nullable="false" />
+          <Property Name="VolunteerID" Type="nvarchar" MaxLength="255" />
+          <Property Name="EventID" Type="int" />
+          <Property Name="RequestDate" Type="date" />
+          <Property Name="StatusID" Type="int" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tegs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Teg" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Num" Type="int" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Passwod" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Volunteer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="City" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Event_EventDirection">
+          <End Role="EventDirection" Type="Self.EventDirection" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventDirection">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="TrendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_Organizer">
+          <End Role="Organizer" Type="Self.Organizer" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizer">
+              <PropertyRef Name="OrganizerID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="OrganizerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventTegs_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="EventTegs" Type="Self.EventTegs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventTegs">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventTegs_Tegs">
+          <End Role="Tegs" Type="Self.Tegs" Multiplicity="1" />
+          <End Role="EventTegs" Type="Self.EventTegs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tegs">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventTegs">
+              <PropertyRef Name="TegID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Volunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="0..1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="VolunteerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organizer_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="Organizer" Type="Self.Organizer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Organizer">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organizer_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Organizer" Type="Self.Organizer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Organizer">
+              <PropertyRef Name="OrganizerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Volunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="VolunteerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Volunteer_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Volunteer">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище VolunteerDataBaseModelContainer">
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventDirection" EntityType="Self.EventDirection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organizer" EntityType="Self.Organizer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tegs" EntityType="Self.Tegs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Volunteer" EntityType="Self.Volunteer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventTegs" EntityType="Self.EventTegs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EventTegs].[EventID] AS [EventID], 
+    [EventTegs].[TegID] AS [TegID]
+    FROM [dbo].[EventTegs] AS [EventTegs]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Event_EventDirection" Association="Self.FK_Event_EventDirection">
+            <End Role="EventDirection" EntitySet="EventDirection" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Organizer" Association="Self.FK_Event_Organizer">
+            <End Role="Organizer" EntitySet="Organizer" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventTegs_Event" Association="Self.FK_EventTegs_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="EventTegs" EntitySet="EventTegs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventTegs_Tegs" Association="Self.FK_EventTegs_Tegs">
+            <End Role="Tegs" EntitySet="Tegs" />
+            <End Role="EventTegs" EntitySet="EventTegs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Volunteer" Association="Self.FK_Feedback_Volunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="Feedback" EntitySet="Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organizer_Type" Association="Self.FK_Organizer_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Organizer" EntitySet="Organizer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organizer_Users" Association="Self.FK_Organizer_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Organizer" EntitySet="Organizer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Status" Association="Self.FK_Request_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Volunteer" Association="Self.FK_Request_Volunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Volunteer_Users" Association="Self.FK_Volunteer_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Volunteer" EntitySet="Volunteer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VolunteerDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="EventName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TrendID" Type="Int32" />
+          <Property Name="Adress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EventDate" Type="DateTime" Precision="0" />
+          <Property Name="OrganizerID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NeedVolunteer" Type="Int32" />
+          <Property Name="FoundVolunteer" Type="Int32" />
+          <Property Name="HoursOfWork" Type="Int32" />
+          <Property Name="Tegs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EventDirection" Relationship="Self.FK_Event_EventDirection" FromRole="Event" ToRole="EventDirection" />
+          <NavigationProperty Name="Organizer" Relationship="Self.FK_Event_Organizer" FromRole="Event" ToRole="Organizer" />
+          <NavigationProperty Name="Feedback" Relationship="VolunteerDataBaseModel.FeedbackEvent" FromRole="Event" ToRole="Feedback" />
+          <NavigationProperty Name="Tegs1" Relationship="VolunteerDataBaseModel.EventTegs" FromRole="Event" ToRole="Teg" />
+        </EntityType>
+        <EntityType Name="EventDirection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Trend" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Event_EventDirection" FromRole="EventDirection" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="VolunteerID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EventID" Type="Int32" />
+          <Property Name="Feedback1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Volunteer" Relationship="Self.FK_Feedback_Volunteer" FromRole="Feedback" ToRole="Volunteer" />
+          <NavigationProperty Name="Event" Relationship="VolunteerDataBaseModel.FeedbackEvent" FromRole="Feedback" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Organizer">
+          <Key>
+            <PropertyRef Name="OrganizerID" />
+          </Key>
+          <Property Name="OrganizerID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrganizationName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TypeID" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Event_Organizer" FromRole="Organizer" ToRole="Event" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_Organizer_Type" FromRole="Organizer" ToRole="Type" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Organizer_Users" FromRole="Organizer" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" />
+          <Property Name="VolunteerID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EventID" Type="Int32" />
+          <Property Name="RequestDate" Type="DateTime" Precision="0" />
+          <Property Name="StatusID" Type="Int32" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Request_Status" FromRole="Request" ToRole="Status" />
+          <NavigationProperty Name="Volunteer" Relationship="Self.FK_Request_Volunteer" FromRole="Request" ToRole="Volunteer" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="Status1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Request_Status" FromRole="Status" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Teg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Teg1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="VolunteerDataBaseModel.EventTegs" FromRole="Teg" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Type1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Organizers" Relationship="Self.FK_Organizer_Type" FromRole="Type" ToRole="Organizer" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Num" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passwod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Organizer" Relationship="Self.FK_Organizer_Users" FromRole="Users" ToRole="Organizer" />
+          <NavigationProperty Name="Volunteer" Relationship="Self.FK_Volunteer_Users" FromRole="Users" ToRole="Volunteer" />
+        </EntityType>
+        <EntityType Name="Volunteer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Feedbacks" Relationship="Self.FK_Feedback_Volunteer" FromRole="Volunteer" ToRole="Feedback" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Request_Volunteer" FromRole="Volunteer" ToRole="Request" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Volunteer_Users" FromRole="Volunteer" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="EventTeg">
+          <Key>
+            <PropertyRef Name="EventID" />
+            <PropertyRef Name="TegID" />
+          </Key>
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="TegID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Event_EventDirection">
+          <End Role="EventDirection" Type="Self.EventDirection" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventDirection">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="TrendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_Organizer">
+          <End Role="Organizer" Type="Self.Organizer" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizer">
+              <PropertyRef Name="OrganizerID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="OrganizerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Volunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="VolunteerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organizer_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="Organizer" Type="Self.Organizer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Organizer">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organizer_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Organizer" Type="Self.Organizer" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Organizer">
+              <PropertyRef Name="OrganizerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Volunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="VolunteerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Volunteer_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Volunteer">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VolunteerDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="EventDirections" EntityType="Self.EventDirection" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
+          <EntitySet Name="Organizers" EntityType="Self.Organizer" />
+          <EntitySet Name="Requests" EntityType="Self.Request" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tegs" EntityType="Self.Teg" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Volunteers" EntityType="Self.Volunteer" />
+          <EntitySet Name="EventTegs" EntityType="Self.EventTeg" />
+          <AssociationSet Name="FK_Event_EventDirection" Association="Self.FK_Event_EventDirection">
+            <End Role="EventDirection" EntitySet="EventDirections" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Organizer" Association="Self.FK_Event_Organizer">
+            <End Role="Organizer" EntitySet="Organizers" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Volunteer" Association="Self.FK_Feedback_Volunteer">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organizer_Type" Association="Self.FK_Organizer_Type">
+            <End Role="Type" EntitySet="Types" />
+            <End Role="Organizer" EntitySet="Organizers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organizer_Users" Association="Self.FK_Organizer_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Organizer" EntitySet="Organizers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Status" Association="Self.FK_Request_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Volunteer" Association="Self.FK_Request_Volunteer">
+            <End Role="Volunteer" EntitySet="Volunteers" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Volunteer_Users" Association="Self.FK_Volunteer_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Volunteer" EntitySet="Volunteers" />
+          </AssociationSet>
+          <AssociationSet Name="FeedbackEvent" Association="VolunteerDataBaseModel.FeedbackEvent">
+            <End Role="Feedback" EntitySet="Feedbacks" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="EventTegs1" Association="VolunteerDataBaseModel.EventTegs">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="Teg" EntitySet="Tegs" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FeedbackEvent">
+          <End Type="VolunteerDataBaseModel.Feedback" Role="Feedback" Multiplicity="1" />
+          <End Type="VolunteerDataBaseModel.Event" Role="Event" Multiplicity="1" />
+        </Association>
+        <Association Name="EventTegs">
+          <End Type="VolunteerDataBaseModel.Event" Role="Event" Multiplicity="*" />
+          <End Type="VolunteerDataBaseModel.Teg" Role="Teg" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище VolunteerDataBaseModelContainer" CdmEntityContainer="VolunteerDataBaseEntities">
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="TrendID" ColumnName="TrendID" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="OrganizerID" ColumnName="OrganizerID" />
+                <ScalarProperty Name="NeedVolunteer" ColumnName="NeedVolunteer" />
+                <ScalarProperty Name="FoundVolunteer" ColumnName="FoundVolunteer" />
+                <ScalarProperty Name="HoursOfWork" ColumnName="HoursOfWork" />
+                <ScalarProperty Name="Tegs" ColumnName="Tegs" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventDirections">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.EventDirection">
+              <MappingFragment StoreEntitySet="EventDirection">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Trend" ColumnName="Trend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VolunteerID" ColumnName="VolunteerID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="Feedback1" ColumnName="Feedback" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizers">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Organizer">
+              <MappingFragment StoreEntitySet="Organizer">
+                <ScalarProperty Name="OrganizerID" ColumnName="OrganizerID" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="VolunteerID" ColumnName="VolunteerID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Status1" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tegs">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Teg">
+              <MappingFragment StoreEntitySet="Tegs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Teg1" ColumnName="Teg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Type1" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Passwod" ColumnName="Passwod" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Volunteers">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.Volunteer">
+              <MappingFragment StoreEntitySet="Volunteer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTegs">
+            <EntityTypeMapping TypeName="VolunteerDataBaseModel.EventTeg">
+              <MappingFragment StoreEntitySet="EventTegs">
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="TegID" ColumnName="TegID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EventTegs1" TypeName="VolunteerDataBaseModel.EventTegs" StoreEntitySet="EventTegs">
+            <EndProperty Name="Teg">
+              <ScalarProperty Name="ID" ColumnName="TegID" />
+            </EndProperty>
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

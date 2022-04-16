@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="73f8e1f00dbf4045b291dad9536dae0d" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Event" Width="1.5" PointX="6.625" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.EventDirection" Width="1.5" PointX="8.625" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Feedback" Width="1.5" PointX="4.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Organizer" Width="1.5" PointX="2.625" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Request" Width="1.5" PointX="4.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Status" Width="1.5" PointX="6.625" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.sysdiagram" Width="1.5" PointX="8.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Teg" Width="1.5" PointX="10.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Type" Width="1.5" PointX="0.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.User" Width="1.5" PointX="0.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.Volunteer" Width="1.5" PointX="2.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VolunteerDataBaseModel.EventTeg" Width="1.5" PointX="8.625" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Event_EventDirection" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Event_Organizer" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Feedback_Volunteer" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Organizer_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Organizer_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Request_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Request_Volunteer" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FK_Volunteer_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="VolunteerDataBaseModel.FeedbackEvent" />
+        <AssociationConnector Association="VolunteerDataBaseModel.EventTegs" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
