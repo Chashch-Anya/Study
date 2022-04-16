@@ -1,9 +1,0 @@
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\bin\Debug\WindowsFormsControlLibrary1.dll
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\bin\Debug\WindowsFormsControlLibrary1.pdb
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\obj\Debug\WindowsFormsControlLibrary1.csproj.CoreCompileInputs.cache
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\obj\Debug\WindowsFormsControlLibrary1.dll
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\obj\Debug\WindowsFormsControlLibrary1.pdb
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\obj\Debug\WindowsFormsControlLibrary1.Properties.Resources.resources
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\obj\Debug\WindowsFormsControlLibrary1.csproj.GenerateResource.cache
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\bin\Debug\WindowsFormsControlLibrary1.dll.config
-C:\Users\USER\source\repos\System\WindowsFormsControlLibrary1\obj\Debug\WindowsFormsControlLibrary1.csprojAssemblyReference.cache
